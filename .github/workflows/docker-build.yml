@@ -145,8 +145,8 @@ jobs:
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: email-smtp.us-east-1.amazonaws.com
-          server_port: 465
-          secure: true
+          server_port: 587
+          secure: false
 
           username: ${{ secrets.SES_SMTP_USERNAME }}
           password: ${{ secrets.SES_SMTP_PASSWORD }}
