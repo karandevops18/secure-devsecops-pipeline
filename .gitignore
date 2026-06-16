@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
+
+# Logs
+*.log
+
+# Environment Variables
+.env
+
+# VS Code
+.vscode/
+
+# Mac/Linux
+.DS_Store
+
+# Trivy
+trivy-report.json
+trivy-report.html
