@@ -59,10 +59,11 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: 1
           format: table
-    security-notification:
+
+  security-notification:
     runs-on: ubuntu-latest
     needs: security-scan
-    if: failure()
+    if: always() && needs.security-scan.result == 'failure'
 
     steps:
       - name: Send Email Alert
@@ -75,7 +76,7 @@ jobs:
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
 
-          subject: "?? DevSecOps Security Gate Failed"
+          subject: "DevSecOps Security Gate Failed"
 
           to: ${{ secrets.EMAIL_TO }}
           from: ${{ secrets.GMAIL_USERNAME }}
