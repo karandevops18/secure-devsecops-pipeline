@@ -7,7 +7,7 @@ def home():
     return {
         "application": "secure-devsecops-pipeline",
         "status": "running",
-        "phase": "local-development"
+        "phase": "ecs-production"
     }
 
 if __name__ == "__main__":
