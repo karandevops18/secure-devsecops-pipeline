@@ -135,35 +135,4 @@ jobs:
       - name: Push Docker Image to ECR
         run: |
           docker push \
-          637131561898.dkr.ecr.us-east-1.amazonaws.com/secure-devsecops-app:v1
-  ses-test:
-    runs-on: ubuntu-latest
-    needs: ecr-push
-
-    steps:
-      - name: Send Test Email via AWS SES
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: email-smtp.us-east-1.amazonaws.com
-          server_port: 587
-          secure: false
-
-          username: ${{ secrets.SES_SMTP_USERNAME }}
-          password: ${{ secrets.SES_SMTP_PASSWORD }}
-
-          subject: "AWS SES Test - Secure DevSecOps Pipeline"
-
-          to: karan.rajawat118@gmail.com
-          from: karan.rajawat118@gmail.com
-
-          body: |
-            AWS SES integration successful.
-
-            Project:
-            Secure DevSecOps Pipeline
-
-            Status:
-            SES SMTP Test Passed
-
-            Triggered By:
-            ${{ github.actor }}                  
+          637131561898.dkr.ecr.us-east-1.amazonaws.com/secure-devsecops-app:v1                 
