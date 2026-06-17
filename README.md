@@ -24,9 +24,9 @@ This project implements a complete **DevSecOps workflow** where:
 
 ---
 
-# 🏗 Architecture Diagram
+## 🏗 Architecture Diagram
 
-![Architecture Diagram](./images/architecture-diagram.png)
+[![Architecture Diagram](images/architecture-diagram.png)](images/architecture-diagram.png)
 
 ---
 
