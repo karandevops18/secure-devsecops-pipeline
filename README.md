@@ -28,6 +28,10 @@ This project implements a complete **DevSecOps workflow** where:
 
 [![Architecture Diagram](images/architecture-diagram.png)](images/architecture-diagram.png)
 
+📌 Click the architecture diagram above to view the full-resolution version.
+
+This architecture demonstrates a complete DevSecOps workflow where infrastructure is provisioned using Terraform, container images are built and scanned through GitHub Actions and Trivy, securely stored in Amazon ECR, automatically deployed to Amazon ECS Fargate behind an Application Load Balancer, monitored through Amazon CloudWatch, and validated through automated deployment notifications.
+
 ---
 
 # 🎯 Solution Architecture
@@ -135,6 +139,30 @@ Amazon CloudWatch
 ---
 
 # 🏗 Infrastructure Provisioned Using Terraform
+
+# 📁 Repository Structure
+
+```text
+secure-devsecops-pipeline/
+│
+├── app/
+├── terraform/
+├── .github/
+│   └── workflows/
+│
+├── images/
+│   ├── architecture-diagram.png
+│   ├── github-actions-success.png
+│   ├── trivy-artifacts.png
+│   ├── ecr-repository.png
+│   ├── ecs-service-running.png
+│   ├── alb-response.png
+│   ├── aws-log-group.png
+│   └── deployment-successfull-notification.png
+│
+├── README.md
+└── .gitignore
+```
 
 ## Networking
 
@@ -363,89 +391,84 @@ Application Response:
 
 # 🧪 Validation & Testing
 
-## ✅ Docker Build Validation
+## ✅ GitHub Actions Pipeline Validation
 
-Successfully built application image using GitHub Actions.
+Verified successful execution of:
 
----
+- Docker Build
+- Trivy Security Scan
+- ECR Push
+- ECS Deployment
+- Deployment Notification
 
-## ✅ Trivy Validation
-
-Generated:
-
-* JSON Report
-* Text Report
-
-Uploaded as pipeline artifacts.
+![GitHub Actions Pipeline](images/github-actions-success.png)
 
 ---
 
-## ✅ Security Gate Validation
+## ✅ Trivy Security Scan Validation
 
-Tested both:
+Generated and uploaded security reports:
 
-### Success Scenario
+- JSON Report
+- Text Report
 
-```text
-No HIGH/CRITICAL Vulnerabilities
-Deployment Allowed
-```
-
-### Failure Scenario
-
-```text
-HIGH/CRITICAL Vulnerabilities Found
-Deployment Blocked
-Email Notification Triggered
-```
+![Trivy Artifacts](images/trivy-artifacts.png)
 
 ---
 
 ## ✅ Amazon ECR Validation
 
-Verified:
+Verified successful image push and repository integration.
 
-```text
-Image Push Successful
-Image Tag Available
-Image Scan Findings Generated
-```
+![Amazon ECR Repository](images/ecr-repository.png)
 
 ---
 
-## ✅ ECS Validation
+## ✅ Amazon ECS Validation
 
-Verified:
+Verified ECS Service health and task execution.
 
-```text
-ECS Service Running
-Task Healthy
-Desired Count Achieved
-```
+![Amazon ECS Service](images/ecs-service-running.png)
 
 ---
 
-## ✅ ALB Validation
+## ✅ Application Load Balancer Validation
 
-Verified application accessibility through ALB DNS endpoint.
+Verified application accessibility through ALB endpoint.
+
+![ALB Response](images/alb-response.png)
+
+Application Response:
+
+```json
+{
+  "application": "secure-devsecops-pipeline",
+  "phase": "ecs-production",
+  "status": "running"
+}
+```
 
 ---
 
 ## ✅ CloudWatch Validation
 
+Verified centralized logging integration.
+
+![CloudWatch Logs](images/aws-log-group.png)
+
 Verified:
 
-```text
-Log Group Created
-Log Stream Generated
-Container Logs Visible
-```
+- Log Group Created
+- Log Stream Generated
+- Container Logs Visible
 
 ---
 
 ## ✅ Deployment Notification Validation
 
-Verified successful deployment email notifications.
+Verified automated deployment success notification.
+
+![Deployment Notification](images/deployment-successfull-notification.png)
 
 ---
 
@@ -594,6 +617,31 @@ Planned improvements:
 
 ---
 
+# 🧹 Resource Cleanup
+
+To avoid unnecessary AWS charges after testing, all resources can be removed using Terraform:
+
+```bash
+terraform destroy
+```
+
+Resources removed:
+
+- ECS Cluster
+- ECS Service
+- ECS Tasks
+- Application Load Balancer
+- Target Group
+- Listener
+- VPC
+- Internet Gateway
+- Route Tables
+- Subnets
+- Security Groups
+- ECR Repository
+- CloudWatch Log Group
+
+
 # 👨‍💻 Author
 
 **Karan Singh Rajawat**
@@ -608,4 +656,6 @@ LinkedIn: `https://www.linkedin.com/in/karanrajawat1801/`
 
 # ⭐ Key Takeaway
 
-This project demonstrates a complete real-world DevSecOps implementation where security is enforced before deployment, infrastructure is fully automated through Terraform, containerized workloads run on ECS Fargate behind an Application Load Balancer, and operational visibility is achieved through CloudWatch—all integrated into a single automated delivery pipeline. 🚀
+This project demonstrates a complete end-to-end DevSecOps implementation built using Terraform, GitHub Actions, Trivy, Amazon ECR, Amazon ECS Fargate, Application Load Balancer, and CloudWatch.
+
+The solution integrates Infrastructure as Code, automated security scanning, deployment gates, container image management, ECS auto-deployments, centralized logging, and automated notifications into a single production-style workflow that mirrors real-world enterprise DevSecOps practices.
